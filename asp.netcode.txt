@@ -1,0 +1,497 @@
+//db.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data.SqlClient;
+
+namespace waiyankoko_assignment
+{
+    public class db
+    {   
+        private static SqlConnection con;
+        public static bool openCon()
+        {
+            try
+            {
+                con = new SqlConnection("Data Source=(LocalDB)\\v11.0;AttachDbFilename=C:\\Users\\Red Dragon\\Documents\\visual studio 2013\\Projects\\waiyankoko_assignment\\waiyankoko_assignment\\App_Data\\zeru.mdf;Integrated Security=True");
+                con.Open();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
+        public static bool closeCon()
+        {
+            try
+            {
+                con.Close();
+                return false;
+            }
+            catch (Exception)
+            {
+                return true;
+            }
+        }
+
+        public static bool register(string name, string password, string email)
+        {
+            try
+            {
+                openCon();
+                SqlCommand sCmd = new SqlCommand();
+                sCmd.Connection = con;
+                sCmd.CommandText = "insert into users(name,password,email) values(@name,@password,@email)";
+                sCmd.Parameters.AddWithValue("@name", name);
+                sCmd.Parameters.AddWithValue("@password", password);
+                sCmd.Parameters.AddWithValue("@email", email);
+
+                int line = sCmd.ExecuteNonQuery();
+                closeCon();
+                return line > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        
+
+    }
+}
+//db.cs
+
+//User.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace waiyankoko_assignment
+{
+    public class User
+    {
+        private int id;
+        private string name, email, password;
+
+        public User(int i, string n, string p, string e)
+        {
+            this.id = i;
+            this.email = e;
+            this.password = p;
+            this.name = n;
+        }
+
+        public void setId(int useri)
+        {
+            this.id = useri;
+        }
+        public int getId()
+        {
+            return this.id;
+        }
+
+        public void setName(String n)
+        {
+            this.name = n;
+        }
+        public string getName()
+        {
+            return this.name;
+        }
+        public void setPassword(String p)
+        {
+            this.password = p;
+        }
+        public String getPassword()
+        {
+            return this.password;
+        }
+        public void setEmail(String e)
+        {
+            this.email = e;
+        }
+        public String getEmail()
+        {
+            return this.email;
+        }
+    }
+}
+
+//User.cs
+
+
+//Goals
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace waiyankoko_assignment
+{
+    public class Goals
+    {
+        private int goalId;
+        private DateTime gdate;
+        private int calories;
+        private int userId;
+
+        public Goals(int gi, DateTime gdt, int c, int uId)
+        {
+            this.goalId = gi;
+            this.gdate = gdt;
+            this.calories = c;
+            this.userId = uId;
+        }
+
+        public void setId(int gi)
+        {
+            this.goalId = gi;
+        }
+        public int getId()
+        {
+            return this.goalId;
+        }
+
+        public void setDate(DateTime gdt)
+        {
+            this.gdate = gdt;
+        }
+        public DateTime getDate()
+        {
+            return this.gdate;
+        }
+
+        public void setCalories(int c)
+        {
+            this.calories = c;
+        }
+        public int getCalories()
+        {
+            return this.calories;
+        }
+
+        public void setUserId(int uId)
+        {
+            this.userId = uId;
+        }
+        public int getUserId()
+        {
+            return this.userId;
+        }
+    }
+
+}
+
+//Goals
+
+
+//Activities
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace waiyankoko_assignment
+{
+    public class Activities
+    {
+        private int activityId;
+        private string activityName;
+
+        public Activities(int ai, string aname)
+        {
+            this.activityId = ai;
+            this.activityName = aname;
+        }
+
+        public void setActivityId(int ai)
+        {
+            this.activityId = ai;
+        }
+        public int getActivityId()
+        {
+            return this.activityId;
+        }
+
+        public void setActivityName(string aname)
+        {
+            this.activityName = aname;
+        }
+        public string getActivityName()
+        {
+            return this.activityName;
+        }
+    }
+
+}
+
+//Activities
+
+
+//Metrics
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace waiyankoko_assignment
+{
+    public class Metrics
+    {
+        private int metricsId;
+        private string metricsName;
+
+        public Metrics(int mi, string mname)
+        {
+            this.metricsId = mi;
+            this.metricsName = mname;
+        }
+
+        public void setMetricsId(int mi)
+        {
+            this.metricsId = mi;
+        }
+        public int getMetricsId()
+        {
+            return this.metricsId;
+        }
+
+        public void setMetricsName(string mname)
+        {
+            this.metricsName = mname;
+        }
+        public string getMetricsName()
+        {
+            return this.metricsName;
+        }
+    }
+
+}
+
+//Metrics
+
+//act_met
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace waiyankoko_assignment
+{
+    public class act_met
+    {
+        private int amId;
+        private int activityId;
+        private int metricsId;
+        private float constant;
+
+        public act_met(int ami, int ai, int mi, float con)
+        {
+            this.amId = ami;
+            this.activityId = ai;
+            this.metricsId = mi;
+            this.constant = con;
+        }
+
+        public void setAmId(int ami)
+        {
+            this.amId = ami;
+        }
+        public int getAmId()
+        {
+            return this.amId;
+        }
+
+        public void setActivityId(int ai)
+        {
+            this.activityId = ai;
+        }
+        public int getActivityId()
+        {
+            return this.activityId;
+        }
+
+        public void setMetricsId(int mi)
+        {
+            this.metricsId = mi;
+        }
+        public int getMetricsId()
+        {
+            return this.metricsId;
+        }
+
+        public void setConstant(float con)
+        {
+            this.constant = con;
+        }
+        public float getConstant()
+        {
+            return this.constant;
+        }
+    }
+
+}
+
+//act_met
+
+//user_act_met
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace waiyankoko_assignment
+{
+    public class user_act_met
+    {
+        private int uamId;
+        private int userId;
+        private int amId;
+        private int amount;
+
+        public user_act_met(int uamid, int uid, int amid, int amt)
+        {
+            this.uamId = uamid;
+            this.userId = uid;
+            this.amId = amid;
+            this.amount = amt;
+        }
+
+        public void setUamId(int uamid)
+        {
+            this.uamId = uamid;
+        }
+        public int getUamId()
+        {
+            return this.uamId;
+        }
+
+        public void setUserId(int uid)
+        {
+            this.userId = uid;
+        }
+        public int getUserId()
+        {
+            return this.userId;
+        }
+
+        public void setAmId(int amid)
+        {
+            this.amId = amid;
+        }
+        public int getAmId()
+        {
+            return this.amId;
+        }
+
+        public void setAmount(int amt)
+        {
+            this.amount = amt;
+        }
+        public int getAmount()
+        {
+            return this.amount;
+        }
+    }
+
+}
+
+//user_act_met
+
+
+//register_button click
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace waiyankoko_assignment
+{
+    public partial class register : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnRegister_Click(object sender, EventArgs e)
+        {
+            // Retrieve values from form inputs
+            string name = register_username.Value.Trim();
+            string password = register_password.Value.Trim();
+            string email = register_email.Value.Trim();
+
+            if (string.IsNullOrEmpty(name))
+            {
+                alertmsg.Text = "Username is required!";
+                alertmsg.CssClass = "alert alert-danger";
+                RegisterStartupScript("ClearAlert", "<script>setTimeout(() => { document.getElementById('" + alertmsg.ClientID + "').innerText = ''; document.getElementById('" + alertmsg.ClientID + "').className = ''; }, 3000);</script>");
+                return;
+            }
+            // Validate inputs
+            if ( name.Length < 4 || name.Length > 16 || !System.Text.RegularExpressions.Regex.IsMatch(name, "^[A-Za-z0-9]+$"))
+            {
+                alertmsg.Text = "Username must be 4-16 characters and alphanumeric.";
+                alertmsg.CssClass = "alert alert-danger";
+                RegisterStartupScript("ClearAlert", "<script>setTimeout(() => { document.getElementById('" + alertmsg.ClientID + "').innerText = ''; document.getElementById('" + alertmsg.ClientID + "').className = ''; }, 3000);</script>");
+                return;
+            }
+            if (string.IsNullOrEmpty(email) || !System.Text.RegularExpressions.Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                alertmsg.Text = "Please enter a valid email address.";
+                alertmsg.CssClass = "alert alert-danger";
+                RegisterStartupScript("ClearAlert", "<script>setTimeout(() => { document.getElementById('" + alertmsg.ClientID + "').innerText = ''; document.getElementById('" + alertmsg.ClientID + "').className = ''; }, 3000);</script>");
+                return;
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                alertmsg.Text = "Password is required!";
+                alertmsg.CssClass = "alert alert-danger";
+                RegisterStartupScript("ClearAlert", "<script>setTimeout(() => { document.getElementById('" + alertmsg.ClientID + "').innerText = ''; document.getElementById('" + alertmsg.ClientID + "').className = ''; }, 3000);</script>");
+                return;
+            }
+
+            if ( password.Length < 12 || !System.Text.RegularExpressions.Regex.IsMatch(password, "^(?=.*[A-Z])(?=.*[a-z])[A-Za-z0-9!@#$%^&*]+$"))
+            {
+                alertmsg.Text = "Password must be at least 12 characters long, include uppercase and lowercase letters.";
+                alertmsg.CssClass = "alert alert-danger";
+                RegisterStartupScript("ClearAlert", "<script>setTimeout(() => { document.getElementById('" + alertmsg.ClientID + "').innerText = ''; document.getElementById('" + alertmsg.ClientID + "').className = ''; }, 3000);</script>");
+                return;
+            }
+
+            
+
+            // Call the database method to register the user
+            bool ans = db.register(name, password, email);
+
+            // Provide feedback to the user
+            if (ans)
+            {
+                alertmsg.Text = "Successfully Registered!";
+                alertmsg.CssClass = "alert alert-success";
+                RegisterStartupScript("RedirectToLogin", "<script>setTimeout(() => { window.location.href = 'index.aspx'; }, 2000);</script>");
+
+            }
+            else
+            {
+                alertmsg.Text = "Try Again.";
+                alertmsg.CssClass = "alert alert-danger";
+                RegisterStartupScript("ClearAlert", "<script>setTimeout(() => { document.getElementById('" + alertmsg.ClientID + "').innerText = ''; document.getElementById('" + alertmsg.ClientID + "').className = ''; }, 3000);</script>");
+            }
+
+            RegisterStartupScript("ClearAlert", "<script>setTimeout(() => { document.getElementById('" + alertmsg.ClientID + "').innerText = ''; document.getElementById('" + alertmsg.ClientID + "').className = ''; }, 3000);</script>");
+            
+        }
+    }
+}
+//register_button click
