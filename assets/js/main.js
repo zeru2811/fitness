@@ -1,149 +1,68 @@
 // Toggle Password Visibility
 document.getElementById('togglePassword').addEventListener('click', function () {
-    const passwordField = document.getElementById('regPassword');
-    const icon = document.getElementById('togglePasswordIcon');
-  
-    if (passwordField.type === 'password') {
-      passwordField.type = 'text';
-      icon.classList.remove('bi-eye-slash');
-      icon.classList.add('bi-eye');
-    } else {
-      passwordField.type = 'password';
-      icon.classList.remove('bi-eye');
-      icon.classList.add('bi-eye-slash');
-    }
-  });
-  
-  // Toggle Confirm Password Visibility
-  document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
-    const confirmPasswordField = document.getElementById('regConfirmPassword');
-    const icon = document.getElementById('toggleConfirmPasswordIcon');
-  
-    if (confirmPasswordField.type === 'password') {
-      confirmPasswordField.type = 'text';
-      icon.classList.remove('bi-eye-slash');
-      icon.classList.add('bi-eye');
-    } else {
-      confirmPasswordField.type = 'password';
-      icon.classList.remove('bi-eye');
-      icon.classList.add('bi-eye-slash');
-    }
-  });
-  
-  const form = document.getElementById('registerForm');
-  const usernameInput = document.getElementById('regUsername');
-  const usernamefeedback = document.getElementById('usernameFeedback');
-  const emailInput = document.getElementById('regEmail');
-  const emailfeedback = document.getElementById('emailFeedback');
-  const passwordInput = document.getElementById('regPassword');
-  const passwordfeedback = document.getElementById('passwordFeedback');
-  const confirmPasswordInput = document.getElementById('regConfirmPassword');
-  const confirmPasswordfeedback = document.getElementById('confirmPasswordFeedback');
-  const acceptTerms = document.getElementById('acceptTerms');
-  const acceptTermsFeedback = document.getElementById('termsFeedback');
-  const submitBtn = document.getElementById('submitBtn');
+  const passwordField = document.getElementById('regPassword');
+  const icon = document.getElementById('togglePasswordIcon');
 
-  
+  if (passwordField.type === 'password') {
+    passwordField.type = 'text';
+    icon.classList.remove('bi-eye-slash');
+    icon.classList.add('bi-eye');
+  } else {
+    passwordField.type = 'password';
+    icon.classList.remove('bi-eye');
+    icon.classList.add('bi-eye-slash');
+  }
+});
+
+// Toggle Confirm Password Visibility
+document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+  const confirmPasswordField = document.getElementById('regConfirmPassword');
+  const icon = document.getElementById('toggleConfirmPasswordIcon');
+
+  if (confirmPasswordField.type === 'password') {
+    confirmPasswordField.type = 'text';
+    icon.classList.remove('bi-eye-slash');
+    icon.classList.add('bi-eye');
+  } else {
+    confirmPasswordField.type = 'password';
+    icon.classList.remove('bi-eye');
+    icon.classList.add('bi-eye-slash');
+  }
+});
+
+
+var needsValidation = document.querySelectorAll('.needs-validation');
+
+Array.prototype.slice.call(needsValidation).forEach(function (form) {
   form.addEventListener('submit', function (event) {
-    event.preventDefault(); 
-
-    isValid = true;
-    const usernamePattern = /^[A-Za-z][A-Za-z0-9_]{5,19}$/;
-    
-    if (usernameInput.value.trim() === '') {
-      usernameInput.classList.add('is-invalid');
-      usernamefeedback.style.display = 'block';
-      usernamefeedback.textContent = 'This field is required.';
-      isValid = false;
-    } else if (!usernamePattern.test(usernameInput.value)) {
-      usernameInput.classList.add('is-invalid');
-      usernamefeedback.style.display = 'block';
-      usernamefeedback.textContent = 'Start with a letter, 6-20 characters.';
-      isValid = false;
-    } else {
-      usernameInput.classList.remove('is-invalid');
-      usernamefeedback.style.display = 'none';
-      // alert('Form submitted successfully!');
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
     }
-
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (emailInput.value.trim() === '') {
-      emailInput.classList.add('is-invalid');
-      emailfeedback.style.display = 'block';
-      emailfeedback.textContent = 'This field is required.';
-      isValid = false;
-    } else if (!emailPattern.test(emailInput.value)) {
-      emailInput.classList.add('is-invalid');
-      emailfeedback.style.display = 'block';
-      emailfeedback.textContent = 'Invalid email address.';
-      isValid = false;
-    } else {
-      emailInput.classList.remove('is-invalid');
-      emailfeedback.style.display = 'none';
-
+    else {
+      window.location.href = "pages_register.html";
     }
-
-    const passwordPattern = /^(?=.*[A-Za-z])[A-Za-z0-9]{12}$/;
-    
-    if (passwordInput.value.trim() === '') {
-      passwordInput.classList.add('is-invalid');
-      passwordfeedback.style.display = 'block';
-      passwordfeedback.textContent = 'This field is required.';
-      isValid = false;
-    } else if (!passwordPattern.test(passwordInput.value)) {
-      passwordInput.classList.add('is-invalid');
-      passwordfeedback.style.display = 'block';
-      passwordfeedback.textContent = 'Password must be 12 characters with at least one uppercase and one lowercase letter.';
-      isValid = false;
-    } else {
-      passwordInput.classList.remove('is-invalid');
-      passwordfeedback.style.display = 'none';
-      // alert('Form submitted successfully!');
-    }
-    
-    if (confirmPasswordInput.value.trim() === '') {
-      confirmPasswordInput.classList.add('is-invalid');
-      confirmPasswordfeedback.style.display = 'block';
-      confirmPasswordfeedback.textContent = 'This field is required.';
-      isValid = false;
-    } else if (confirmPasswordInput.value !== passwordInput.value) {
-      confirmPasswordInput.classList.add('is-invalid');
-      confirmPasswordfeedback.style.display = 'block';
-      confirmPasswordfeedback.textContent = 'Passwords do not match.';
-      isValid = false;
-    } else {
-      confirmPasswordInput.classList.remove('is-invalid');
-      confirmPasswordfeedback.style.display = 'none';
-      // alert('Form submitted successfully!');
-    }
-
-    if (isValid) {
-      alert('Form submitted successfully!');
-    }
+    form.classList.add('was-validated');
+  }, false);
+});
 
 
+document.getElementById('regConfirmPassword').addEventListener('input', function () {
+  const password = document.getElementById('regPassword').value;
+  const confirmPassword = this.value;
+  const confirmPasswordFeedback = document.getElementById('confirmPasswordFeedback');
 
-
-  });
-  
-  usernameInput.addEventListener('input', () => {
-    usernameInput.classList.remove('is-invalid');
-    usernamefeedback.style.display = 'none';
-  });
-
-  emailInput.addEventListener('input', () => {
-    emailInput.classList.remove('is-invalid');
-    emailfeedback.style.display = 'none';
-  });
-
-  passwordInput.addEventListener('input', () => {
-    passwordInput.classList.remove('is-invalid');
-    passwordfeedback.style.display = 'none';
-  });
-
-  confirmPasswordInput.addEventListener('input', () => {
-    confirmPasswordInput.classList.remove('is-invalid');
-    confirmPasswordfeedback.style.display = 'none';
-  });
-
- 
+  if (confirmPassword !== password) {
+    // Passwords do not match
+    confirmPasswordFeedback.style.display = 'block';
+    this.setCustomValidity('Passwords do not match.');
+    this.classList.add('is-invalid');
+    this.classList.remove('is-valid');
+  } else {
+    // Passwords match
+    confirmPasswordFeedback.style.display = 'none';
+    this.setCustomValidity('');
+    this.classList.remove('is-invalid');
+    this.classList.add('is-valid');
+  }
+});
