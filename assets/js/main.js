@@ -1,3 +1,19 @@
+
+var needsValidation = document.querySelectorAll('.needs-validation');
+
+Array.prototype.slice.call(needsValidation).forEach(function (form) {
+  form.addEventListener('submit', function (event) {
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    // else {
+      // window.location.href = "pages_register.html";
+    // }
+    form.classList.add('was-validated');
+  }, false);
+});
+
 // Toggle Password Visibility
 document.getElementById('togglePassword').addEventListener('click', function () {
   const passwordField = document.getElementById('regPassword');
@@ -30,21 +46,6 @@ document.getElementById('toggleConfirmPassword').addEventListener('click', funct
   }
 });
 
-
-var needsValidation = document.querySelectorAll('.needs-validation');
-
-Array.prototype.slice.call(needsValidation).forEach(function (form) {
-  form.addEventListener('submit', function (event) {
-    if (!form.checkValidity()) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    else {
-      window.location.href = "pages_register.html";
-    }
-    form.classList.add('was-validated');
-  }, false);
-});
 
 
 document.getElementById('regConfirmPassword').addEventListener('input', function () {
