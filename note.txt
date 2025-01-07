@@ -114,3 +114,55 @@
 //   confirmPasswordInput.classList.remove('is-invalid');
 //   confirmPasswordfeedback.style.display = 'none';
 // });
+
+
+
+<div class="col-12">
+    <div class="card recent-activity overflow-auto">
+        <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                    class="bi bi-three-dots"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                </li>
+                <li><a class="dropdown-item" href="#">Today</a></li>
+                <li><a class="dropdown-item" href="#">This Week</a></li>
+                <li><a class="dropdown-item" href="#">This Month</a></li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+            <table class="table table-borderless datatable">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Activity</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Calories</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Yoga</td>
+                        <td>45 mins</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Weight Training</td>
+                        <td>60 mins</td>
+                        <td>400</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Running</td>
+                        <td>30 mins</td>
+                        <td>300</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
