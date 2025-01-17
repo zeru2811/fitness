@@ -166,3 +166,17 @@
         </div>
     </div>
 </div>
+
+
+
+CREATE TABLE calories_calculation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    activity_type VARCHAR(50) NOT NULL,
+    met_value DECIMAL(5,2) NOT NULL,
+    weight DECIMAL(5,2) NOT NULL,
+    duration_minutes INT NOT NULL,
+    calories_burned DECIMAL(7,2) GENERATED ALWAYS AS (met_value * weight * (duration_minutes / 60)) STORED,
+    date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);

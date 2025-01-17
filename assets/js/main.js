@@ -9,6 +9,7 @@
     return all ? [...document.querySelectorAll(el)] : document.querySelector(el);
   };
 
+
   /**
    * Easy event listener function
    */
@@ -328,7 +329,7 @@
    * Initiate Datatables
    */
   const datatables = document.querySelectorAll('.datatable');
-datatables.forEach(datatable => {
+  datatables.forEach(datatable => {
   new simpleDatatables.DataTable(datatable, {
     perPageSelect: [5, 10, 15, ["All", -1]],
     columns: [
